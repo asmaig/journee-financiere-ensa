@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>À Propos - Financial Day</title>
+    <style>
+        /* Styles communs - adaptés aux couleurs du site */
+        .logo-image {
+            height: 60px;
+            width: auto;
+        }
+        :root {
+            --primary-color: #071727;
+            --secondary-color: #2d5aa0;
+            --accent-color: #e53e3e;
+            --light-color: #f7fafc;
+            --dark-color: #2d3748;
+            --gradient-primary: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #0A0A1A;
+            color: white;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        header {
+            background-color: rgba(10, 10, 26, 0.95);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgb(251, 251, 251);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            margin-left: 10px;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        nav ul li a:hover {
+            color: #fdbb2d;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: #fdbb2d;
+        }
+
+        footer {
+            background-color: rgba(10, 10, 26, 0.95);
+            color: white;
+            padding: 3rem 0 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            color: #fdbb2d;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #cbd5e0;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(253, 187, 45, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: #fdbb2d;
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(253, 187, 45, 0.3);
+            color: #cbd5e0;
+        }
+
+        /* Styles spécifiques à la page À Propos */
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .about-text {
+            text-align: justify;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .objectives {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .objective-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .objective-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .objective-card h3 {
+            color: #fdbb2d;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .team-section {
+            margin-top: 4rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-member {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+
+        .member-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #fbfbfb, rgba(244, 132, 21, 0.94));
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .member-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .member-role {
+            color: #fdbb2d;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        /* Styles pour les boutons */
+        .cta-button {
+            display: inline-block;
+            background: #071727;
+            color: white;
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Styles pour assurer la responsivité */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 0 0.5rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Header -->
+<header>
+    <div class="container header-content">
+        <div class="logo">
+            <img src="images/logo.png" alt="Financial Day - 5ème Édition" class="logo-image">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="programme.html">Programme</a></li>
+                <li><a href="sponsors.html">Sponsors</a></li>
+                <li><a href="apropos.html">À propos</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- About Section -->
+<section class="section">
+    <div class="container">
+        <div class="section-title">
+            <h2>À Propos du Financial Day</h2>
+        </div>
+
+        <div class="about-content">
+            <div class="about-text">
+                <p>Le Financial Day que nous organisons s'inscrit dans une dynamique de maîtrise des mécanismes financiers, sous le thème « Exploration Stratégique des Marchés Financiers : Entre Modèles Quantitatifs et Décision Managériale ».</p>
+                <p>Il vise à offrir une vision globale et actuelle de la finance, en la rendant accessible, inspirante et ancrée dans les réalités de demain.</p>
+                <p>À travers une série de conférences, de tables rondes, d'ateliers interactifs et de rencontres professionnelles, cet événement se positionne comme un véritable carrefour entre savoir académique, innovation financière et engagement citoyen.</p>
+                <p>Cette journée s'adresse aux étudiants, aux chercheurs, aux professionnels du secteur financier, ainsi qu'à toute personne souhaitant approfondir sa compréhension des enjeux financiers contemporains.</p>
+            </div>
+
+            <div class="objectives">
+                <div class="objective-card">
+                    <h3>Objectif 1</h3>
+                    <p>Offrir une plateforme d'échange entre les étudiants, les chercheurs et les professionnels du secteur financier.</p>
+                </div>
+                <div class="objective-card">
+                    <h3>Objectif 2</h3>
+                    <p>Sensibiliser les participants aux enjeux et aux opportunités des marchés financiers actuels.</p>
+                </div>
+                <div class="objective-card">
+                    <h3>Objectif 3</h3>
+                    <p>Promouvoir l'excellence académique et professionnelle dans le domaine de la finance.</p>
+                </div>
+            </div>
+
+            <div class="team-section">
+                <div class="section-title">
+                    <h2>Notre Équipe</h2>
+                </div>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-photo">HB</div>
+                        <div class="member-name">Hajar BELHAFID</div>
+                        <div class="member-role">Coordinatrice</div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-photo">AE</div>
+                        <div class="member-name">Aymane EL BOUCHIKHI</div>
+                        <div class="member-role">Responsable Sponsoring</div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-photo">HA</div>
+                        <div class="member-name">Hiba AIT ALI</div>
+                        <div class="member-role">Responsable Logistique</div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-photo">SK</div>
+                        <div class="member-name">Soufiane KHADIR</div>
+                        <div class="member-role">Responsable Communication</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Financial Day</h3>
+                <p>5ème édition - Exploration Stratégique des Marchés Financiers</p>
+                <p>ENSA Agadir</p>
+                <p>22 Novembre 2025</p>
+            </div>
+            <div class="footer-section">
+                <h3>Liens Rapides</h3>
+                <a href="index.html">Accueil</a>
+                <a href="programme.html">Programme</a>
+                <a href="sponsors.html">Sponsors</a>
+                <a href="apropos.html">À propos</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: financialday.2e@gmail.com</p>
+                <p>Tél: +212 652-792658</p>
+                <div class="social-links">
+                    <a href="#">FB</a>
+                    <a href="#">IG</a>
+                    <a href="#">LI</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Financial Day - ENSA Agadir. Tous droits réservés.</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

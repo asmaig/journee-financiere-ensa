@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programme - Journée Financière</title>
+    <style>
+        :root {
+            --deep-purple: #071727;
+            --electric-blue: #ffffff;
+            --bright-cyan: rgba(244, 132, 21, 0.94);
+            --dark-bg: #0A0A1A;
+            --card-bg: #853107;
+            --white: #FFFFFF;
+            --light-gray: #E8EDF3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        header {
+            background: rgba(10, 10, 26, 0.95);
+            backdrop-filter: blur(10px);
+            color: var(--white);
+            padding: 1rem 0;
+            box-shadow: 0 4px 20px rgb(255, 255, 255);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgb(255, 255, 255);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-image {
+            height: 45px;
+            width: auto;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: var(--electric-blue);
+        }
+
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--electric-blue), var(--bright-cyan));
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+
+        .section {
+            padding: 8rem 0 6rem;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.8rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+            background: linear-gradient(135deg, var(--electric-blue) 0%, var(--bright-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--electric-blue) 0%, var(--bright-cyan) 100%);
+            border-radius: 2px;
+        }
+
+        footer {
+            background: linear-gradient(135deg, var(--deep-purple) 0%, var(--dark-bg) 100%);
+            color: var(--white);
+            padding: 5rem 0 2rem;
+            position: relative;
+        }
+
+        footer:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--electric-blue), transparent);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            color: var(--electric-blue);
+        }
+
+        .footer-section p, .footer-section a {
+            color: #94A3B8;
+            margin-bottom: 0.8rem;
+            display: block;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--bright-cyan);
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .social-links a:hover {
+            background: var(--bright-cyan);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(244, 132, 21, 0.4);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            color: #64748B;
+            font-size: 0.9rem;
+        }
+
+        /* Styles spécifiques au programme */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .timeline:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--electric-blue), var(--bright-cyan));
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        /* BOX TRANSPARENTE - TEXTE BIEN À L'INTÉRIEUR */
+        .timeline-content {
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            transition: all 0.3s ease;
+            overflow: hidden; /* IMPORTANT : empêche le débordement */
+        }
+
+        .timeline-content:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .timeline-content:after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--bright-cyan);
+            top: 30px;
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--dark-bg), 0 0 0 6px var(--bright-cyan);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content:after {
+            right: -10px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content:after {
+            left: -10px;
+        }
+
+        .time {
+            font-weight: bold;
+            color: var(--electric-blue);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .event-title {
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--white);
+            font-size: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .timeline-content p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .speaker {
+            font-style: italic;
+            color: var(--bright-cyan);
+            margin-top: 15px;
+            display: block;
+            font-size: 1rem;
+        }
+
+        /* STYLE AMÉLIORÉ POUR LES CONFÉRENCIERS - TEXTE BIEN DANS LA BOX */
+        .speaker-presentation {
+            margin-top: 2rem;
+            padding: 0;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        .speaker-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+            padding: 0;
+            max-width: 100%; /* IMPORTANT : limite la largeur */
+        }
+
+        .speaker-photo-large {
+            width: 160px; /* Légèrement réduit pour mieux tenir */
+            height: 160px;
+            border-radius: 15px;
+            object-fit: cover;
+            border: 3px solid var(--bright-cyan);
+            box-shadow: 0 10px 30px rgba(244, 132, 21, 0.3);
+            flex-shrink: 0;
+        }
+
+        .speaker-details {
+            flex: 1;
+            color: var(--white);
+            min-width: 0; /* IMPORTANT : permet le rétrécissement */
+        }
+
+        .speaker-name-section {
+            margin-bottom: 1rem;
+        }
+
+        .speaker-title {
+            font-size: 0.9rem;
+            color: var(--bright-cyan);
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .speaker-name {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--electric-blue);
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+            word-wrap: break-word;
+        }
+
+        .speaker-name span {
+            display: block;
+            font-size: 1.4rem;
+        }
+
+        .speaker-position {
+            font-size: 1.1rem;
+            color: var(--bright-cyan);
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .speaker-company {
+            font-size: 1rem;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        .speaker-education {
+            font-size: 0.9rem;
+            color: var(--white);
+            font-style: italic;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+            border-left: 3px solid var(--bright-cyan);
+            padding-left: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .company-logo-large {
+            height: 35px;
+            margin-top: 0.8rem;
+            opacity: 1;
+            max-width: 100%;
+        }
+
+        .conference-description {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--bright-cyan), transparent);
+            margin: 1.5rem 0;
+            border: none;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            nav ul li {
+                margin-left: 1rem;
+                margin-right: 1rem;
+            }
+
+            .timeline:before {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+
+            .timeline-content:after {
+                left: 20px !important;
+            }
+
+            .speaker-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            .speaker-photo-large {
+                width: 140px;
+                height: 140px;
+                margin: 0 auto;
+            }
+
+            .speaker-name {
+                font-size: 1.4rem;
+            }
+
+            .speaker-name span {
+                font-size: 1.2rem;
+            }
+
+            .timeline-content {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container header-content">
+        <div class="logo">
+            <img src="images/logo.png" alt="Financial Day - 5ème Édition" class="logo-image">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="programme.html">Programme</a></li>
+                <li><a href="sponsors.html">Sponsors</a></li>
+                <li><a href="apropos.html">À propos</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section class="section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Programme Officiel</h2>
+            <p style="color: var(--bright-cyan); font-size: 1.2rem;">29 Novembre 2025 - ENSA Agadir</p>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="time">8h30</div>
+                    <div class="event-title">Accueil et inscription</div>
+                    <p>Ouverture des portes et enregistrement des participants</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="time">9h00</div>
+                    <div class="event-title">Ouverture de la journée</div>
+                    <p>Mot de la coordinatrice: <span class="speaker">Hajar Belhafid</span></p>
+                    <p>Mot de monsieur le directeur: <span class="speaker">Pr. Hicham JAMOULI</span></p>
+                    <p>Mot du Chef de la filière FID: <span class="speaker">Pr. Brahim ELASRI</span></p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="time">10h00</div>
+                    <div class="event-title">Conférence 1 : Modèles Quantitatifs Avancés</div>
+                    <p class="conference-description">Applications des modèles quantitatifs dans les marchés financiers modernes</p>
+
+                    <hr class="divider">
+
+                    <div class="speaker-presentation">
+                        <div class="speaker-content">
+                            <img src="images/speaker1.jpg" alt="MME SANAE CHEMIAL" class="speaker-photo-large">
+                            <div class="speaker-details">
+                                <div class="speaker-name-section">
+                                    <div class="speaker-title">Mme</div>
+                                    <div class="speaker-name">STIK STIK</div>
+                                </div>
+                                <div class="speaker-position">Pricing Services Quant SG ATS</div>
+                                <div class="speaker-company">Servant Leader | Tech Lead | Digital IT Engineer</div>
+                                <div class="speaker-education">Lauréate de l'EMI - Modélisation et informatique scientifique</div>
+                                <img src="images/societe-generale-logo.png" alt="SOCIETE GENERALE" class="company-logo-large">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="time">11h00</div>
+                    <div class="event-title">Pause café</div>
+                    <p>Réseautage et échanges informels</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="time">11h30</div>
+                    <div class="event-title">Conférence 2 : Innovation Technologique en Finance</div>
+                    <p class="conference-description">Transformation digitale et intelligence artificielle dans le secteur financier</p>
+
+                    <hr class="divider">
+
+                    <div class="speaker-presentation">
+                        <div class="speaker-content">
+                            <img src="images/speaker2.jpg" alt="MR. ABDESALAM SEMLALI" class="speaker-photo-large">
+                            <div class="speaker-details">
+                                <div class="speaker-name-section">
+                                    <div class="speaker-title">Mr</div>
+                                    <div class="speaker-name">
+                                        <span>RBIK</span>
+                                        <span>RBIK</span>
+                                    </div>
+                                </div>
+                                <div class="speaker-position">Analyste Valorisation</div>
+                                <div class="speaker-company">Structured Products Engineer</div>
+                                <div class="speaker-education">Lauréat 2024 FID - ENSA Agadir</div>
+                                <img src="images/societe-generale-logo.png" alt="SOCIETE GENERALE" class="company-logo-large">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="time">12h30</div>
+                    <div class="event-title">Pause déjeuner</div>
+                    <p>Buffet et continuation des échanges</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Journée Financière</h3>
+                <p>5ème édition - Exploration Stratégique des Marchés Financiers</p>
+                <p>ENSA Agadir</p>
+                <p>22 Novembre 2025</p>
+            </div>
+            <div class="footer-section">
+                <h3>Liens Rapides</h3>
+                <a href="index.html">Accueil</a>
+                <a href="programme.html">Programme</a>
+                <a href="sponsors.html">Sponsors</a>
+                <a href="apropos.html">À propos</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: financialday.2e@gmail.com</p>
+                <p>Tél: +212 652-792658</p>
+                <div class="social-links">
+                    <a href="#">FB</a>
+                    <a href="#">IG</a>
+                    <a href="#">LI</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Journée Financière - ENSA Agadir. Tous droits réservés.</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
